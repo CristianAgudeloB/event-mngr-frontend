@@ -28,5 +28,6 @@ Una vez ejecutados estos comandos, la aplicación se iniciará y podrás acceder
 
 - Node.js (versión recomendada: LTS)
 - npm (gestor de paquetes incluido con Node.js)
+- Tener en ejecución el backend del proyecto (`https://github.com/CristianAgudeloB/event-mngr-backend`).
 
 ¡Listo! Ya estás preparado para comenzar a explorar y desarrollar nuevas funcionalidades en el frontend del Gestor de Eventos.
