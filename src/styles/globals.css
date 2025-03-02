@@ -1,0 +1,57 @@
+:root {
+    --font-family: 'Poppins', system-ui, Avenir, Helvetica, Arial, sans-serif;
+    --line-height: 1.5;
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-bold: 600;
+  
+    --color-text: rgba(255, 255, 255, 0.87);
+    --color-background: #0a0a0a;
+    --color-header: #1a1a1a;
+    --color-border: #333;
+    --color-greeting: #888;
+    --color-event-title: #fff;
+    --color-primary: #6366f1;
+    --color-primary-hover: #4f46e5;
+    --color-logout: #dc2626;
+    --color-logout-hover: #b91c1c;
+    --color-input-bg: #333;
+    --color-input-border: #444;
+    --color-icon-bg: rgba(255, 255, 255, 0.1);
+    --color-icon-bg-hover: rgba(255, 255, 255, 0.2);
+  
+    --header-height: 80px;
+  
+    font-family: var(--font-family);
+    line-height: var(--line-height);
+    font-weight: var(--font-weight-normal);
+    color-scheme: dark;
+    color: var(--color-text);
+    background-color: var(--color-background);
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html, body {
+    width: 100%;
+    height: 100%;
+  }
+  
+  body {
+    margin: 0;
+    min-width: 320px;
+    min-height: 100vh;
+  }
+  
+  input, button, textarea, select {
+    font-family: var(--font-family);
+  }
+  
