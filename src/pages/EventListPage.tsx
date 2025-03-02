@@ -65,6 +65,8 @@ const showEventFormModal = async (
 
 const EventListPage: React.FC = () => {
   const [events, setEvents] = useState<EventItem[]>([]);
+  const [sortBy, setSortBy] = useState<'date' | 'title' | 'location'>('date');
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const navigate = useNavigate();
   const userName = localStorage.getItem('name') || 'Usuario';
   const currentUserId = Number(localStorage.getItem('userId'));
@@ -85,6 +87,27 @@ const EventListPage: React.FC = () => {
       });
     }
   };
+
+  const handleSortChange = (value: string) => {
+    const [newSortBy, newSortOrder] = value.split('-') as ['date' | 'title' | 'location', 'asc' | 'desc'];
+    setSortBy(newSortBy);
+    setSortOrder(newSortOrder);
+  };
+
+  const sortedEvents = [...events].sort((a, b) => {
+    const modifier = sortOrder === 'asc' ? 1 : -1;
+    
+    switch (sortBy) {
+      case 'title':
+        return a.title.localeCompare(b.title) * modifier;
+      case 'location':
+        return a.location.localeCompare(b.location) * modifier;
+      case 'date':
+        return (new Date(a.date).getTime() - new Date(b.date).getTime()) * modifier;
+      default:
+        return 0;
+    }
+  });
 
   useEffect(() => {
     (async () => {
@@ -243,19 +266,33 @@ const EventListPage: React.FC = () => {
             </button>
           </div>
         </div>
-      </header>
+        </header>
       <div className="events-section">
         <div className="events-header">
           <h2>Mis Eventos</h2>
-          <button className="btn-primary" onClick={handleCreateEvent}>
-            Crear Evento
-          </button>
+          <div className="events-header-controls">
+            <select 
+              className="sort-select"
+              value={`${sortBy}-${sortOrder}`}
+              onChange={(e) => handleSortChange(e.target.value)}
+            >
+              <option value="date-asc">Fecha (Ascendente)</option>
+              <option value="date-desc">Fecha (Descendente)</option>
+              <option value="title-asc">Nombre (A-Z)</option>
+              <option value="title-desc">Nombre (Z-A)</option>
+              <option value="location-asc">Ubicación (A-Z)</option>
+              <option value="location-desc">Ubicación (Z-A)</option>
+            </select>
+            <button className="btn-primary" onClick={handleCreateEvent}>
+              Crear Evento
+            </button>
+          </div>
         </div>
         <div className="events-list">
-          {events.length === 0 ? (
+          {sortedEvents.length === 0 ? (
             <div className="no-events-message">No se encontraron eventos</div>
           ) : (
-            events.map((evt) => {
+            sortedEvents.map((evt) => {
               const eventDate = new Date(evt.date);
               return (
                 <div
