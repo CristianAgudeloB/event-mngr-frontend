@@ -58,6 +58,14 @@ const showEventFormModal = async (
         Swal.showValidationMessage('Todos los campos son obligatorios');
         return null;
       }
+      const selectedDate = new Date(date);
+      const now = new Date();
+
+      if (selectedDate.getTime() < now.getTime()) {
+        Swal.showValidationMessage('La fecha debe ser futura');
+        return null;
+      }
+    
       return { title, description, location, date };
     }
   });

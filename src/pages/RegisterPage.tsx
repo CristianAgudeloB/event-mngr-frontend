@@ -35,7 +35,7 @@ const RegisterPage: React.FC = () => {
         title: 'Error al registrar',
         text:
           error?.response?.status === 400
-            ? 'La contraseña debe tener 8 caracteres'
+            ? 'Verifica los datos'
             : error?.response?.data?.error || 'Verifica los datos',
         ...swalOptions
       });
