@@ -1,4 +1,3 @@
-// RegisterPage.test.tsx
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { BrowserRouter as Router } from 'react-router-dom';

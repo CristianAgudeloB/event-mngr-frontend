@@ -1,4 +1,3 @@
-// LoginPage.test.tsx
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { describe, expect, it, vi, beforeEach } from 'vitest';
