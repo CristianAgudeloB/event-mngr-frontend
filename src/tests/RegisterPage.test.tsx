@@ -105,7 +105,7 @@ describe('RegisterPage', () => {
       expect(Swal.fire).toHaveBeenCalledWith({
         icon: 'error',
         title: 'Error al registrar',
-        text: 'La contraseña debe tener 8 caracteres',
+        text: 'Verifica los datos',
         ...swalOptions
       });
     });

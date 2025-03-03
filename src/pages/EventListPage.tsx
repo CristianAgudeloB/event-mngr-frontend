@@ -35,7 +35,7 @@ const showEventFormModal = async (
     title: modalTitle,
     html:
       `<input id="swal-title" class="swal2-input dark-input" placeholder="Título" value="${initialValues?.title || ''}" required>` +
-      `<textarea id="swal-desc" class="swal2-textarea dark-input" placeholder="Descripción" rows="4" style="width: 100%; min-height: 100px; resize: vertical;"required>${initialValues?.description || ''}</textarea>` +
+      `<textarea id="swal-desc" class="swal2-textarea dark-input" placeholder="Descripción" rows="4" style="width: 100%; min-height: 100px; resize: vertical;" required>${initialValues?.description || ''}</textarea>` +
       `<input id="swal-loc" class="swal2-input dark-input" placeholder="Ubicación" value="${initialValues?.location || ''}" required>` +
       `<input id="swal-date" type="datetime-local" class="swal2-input dark-input" placeholder="Fecha" value="${
         initialValues?.date ? formatDateForInput(initialValues.date) : ''
@@ -65,7 +65,7 @@ const showEventFormModal = async (
         Swal.showValidationMessage('La fecha debe ser futura');
         return null;
       }
-    
+
       return { title, description, location, date };
     }
   });
@@ -102,20 +102,17 @@ const EventListPage: React.FC = () => {
     setSortOrder(newSortOrder);
   };
 
-  const sortedEvents = [...events].sort((a, b) => {
-    const modifier = sortOrder === 'asc' ? 1 : -1;
-    
-    switch (sortBy) {
-      case 'title':
-        return a.title.localeCompare(b.title) * modifier;
-      case 'location':
-        return a.location.localeCompare(b.location) * modifier;
-      case 'date':
-        return (new Date(a.date).getTime() - new Date(b.date).getTime()) * modifier;
-      default:
-        return 0;
-    }
-  });
+  const sortingStrategies: Record<
+    'title' | 'location' | 'date',
+    (a: EventItem, b: EventItem, modifier: number) => number
+  > = {
+    title: (a, b, modifier) => a.title.localeCompare(b.title) * modifier,
+    location: (a, b, modifier) => a.location.localeCompare(b.location) * modifier,
+    date: (a, b, modifier) => (new Date(a.date).getTime() - new Date(b.date).getTime()) * modifier,
+  };
+
+  const modifier = sortOrder === 'asc' ? 1 : -1;
+  const sortedEvents = [...events].sort((a, b) => sortingStrategies[sortBy](a, b, modifier));
 
   useEffect(() => {
     (async () => {
@@ -274,7 +271,7 @@ const EventListPage: React.FC = () => {
             </button>
           </div>
         </div>
-        </header>
+      </header>
       <div className="events-section">
         <div className="events-header">
           <h2>Mis Eventos</h2>
